@@ -4,21 +4,26 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 // Importar las rutas
-import authRoutes from './routes/auth.routes'; 
+import authRoutes from './routes/auth.routes';
+import tenantsRoutes from './routes/tenants.routes';
 
 const app: Application = express();
 
 // Middlewares globales
 
-// Permitir peticiones desde el frontend de Vite (http://localhost:5173)
+// Permitir peticiones desde el frontend de Vite (localhost y subdominio jscs.localhost)
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'http://jscs.localhost:5173',
+  ],
 }));
 
 app.use(bodyParser.json());
 
 // Montaje de las rutas de los módulos
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/tenants', tenantsRoutes);
 
 // Ruta de prueba
 app.get('/api/v1/status', (req: Request, res: Response) => {
