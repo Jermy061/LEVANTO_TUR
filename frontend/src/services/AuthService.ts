@@ -1,8 +1,15 @@
 // Archivo: frontend/src/services/AuthService.ts
 import axios from 'axios';
 
-// La URL base del Backend
-const API_URL = 'http://localhost:4000/api/v1/auth'; 
+// La URL base del Backend (compatibilidad con jscs.localhost y localhost:5173)
+const origin = window.location.origin;
+let API_BASE = 'http://127.0.0.1:4000';
+
+if (origin.includes('jscs.localhost') || origin.includes('localhost:5173')) {
+  API_BASE = 'http://127.0.0.1:4000';
+}
+
+const API_URL = `${API_BASE}/api/v1/auth`;
 
 // --- Tipos de Datos (Deben coincidir con lo que devuelve el Backend) ---
 
