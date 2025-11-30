@@ -1,0 +1,43 @@
+{
+  "name": "backend_core",
+  "version": "1.0.0",
+  "description": "Backend Core para el proyecto de turismo LEVANTO CONECTA.",
+  "main": "src/server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/server.ts",
+    "dev": "ts-node src/server.ts",
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "prisma",
+    "typescript",
+    "multitenant"
+  ],
+  "author": "Jermy",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "@types/cors": "^2.8.19",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.15.0",
+    "resend": "^6.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/body-parser": "^1.19.6",
+    "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}

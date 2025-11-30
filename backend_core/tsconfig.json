@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* 1. Módulos y Target modernos */
+    "target": "ES2022",
+    "module": "NodeNext",          /* CLAVE: Usa el sistema de módulos moderno */
+    "moduleResolution": "NodeNext", /* CLAVE: Resuelve paths con el estándar de Node */
+    
+    /* 2. Directorios y Tipo de Archivos */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    
+    /* 3. Comprobación de Tipos (Mantener seguridad) */
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
