@@ -5,7 +5,11 @@ import jwt from 'jsonwebtoken';
 
 // NOTA: El enum UserRole se importa automáticamente de @prisma/client
 
-const JWT_SECRET = process.env.JWT_SECRET || 'LEVANTOTUR_SECRET_CAMBIAR_EN_PRODUCCION';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error('La variable de entorno JWT_SECRET no está definida. La aplicación no puede iniciarse de forma segura.');
+}
 
 /**
  * Servicio para manejar la lógica de inicio de sesión.
@@ -15,14 +19,14 @@ export const authenticateUser = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
-    throw new Error('Credenciales inválidas. Usuario no encontrado.');
+    throw new Error('Credenciales inválidas.');
   }
 
   // 2. Comparar contraseña
   const passwordMatch = await bcrypt.compare(password, user.password);
 
   if (!passwordMatch) {
-    throw new Error('Credenciales inválidas. Contraseña incorrecta.');
+    throw new Error('Credenciales inválidas.');
   }
 
   // 3. Generar JWT

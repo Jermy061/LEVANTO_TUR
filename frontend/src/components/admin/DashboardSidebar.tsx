@@ -1,7 +1,7 @@
 // src/components/admin/DashboardSidebar.tsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboardIcon, MountainIcon, BuildingIcon, SettingsIcon } from '../../components/icons';
+import { LayoutDashboardIcon, MountainIcon } from '../../components/icons';
 import { useAuth } from '../../context/AuthContext';
 
 const linkBaseClasses =
@@ -13,17 +13,17 @@ const DashboardSidebar: React.FC = () => {
   return (
     <aside className="flex w-64 flex-col justify-between border-r border-slate-800 bg-slate-950 text-slate-100">
       <div className="space-y-6 p-4">
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 text-lg font-black">
-            LC
+        <div className="flex items-center gap-3">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-sky-400 text-2xl font-black text-white">
+            L.
           </div>
           <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-tight">Levanto ADMIN</p>
-            <p className="text-[11px] text-slate-400">Municipalidad de Levanto</p>
+            <p className="text-lg font-bold tracking-tight text-white">Levanto</p>
+            <p className="text-xs text-slate-400">Panel Admin</p>
           </div>
         </div>
 
-        <nav className="space-y-1 text-xs">
+        <nav className="space-y-2">
           <NavLink
             to="/admin/dashboard"
             className={({ isActive }) =>
@@ -34,8 +34,8 @@ const DashboardSidebar: React.FC = () => {
               }`
             }
           >
-            <LayoutDashboardIcon className="h-4 w-4" />
-            <span>Resumen general</span>
+            <LayoutDashboardIcon className="h-5 w-5" />
+            <span>Dashboard</span>
           </NavLink>
 
           <NavLink
@@ -48,31 +48,9 @@ const DashboardSidebar: React.FC = () => {
               }`
             }
           >
-            <MountainIcon className="h-4 w-4" />
-            <span>Contenido turístico</span>
+            <MountainIcon className="h-5 w-5" />
+            <span>Contenido Turístico</span>
           </NavLink>
-
-          <NavLink
-            to="/admin/tenants"
-            className={({ isActive }) =>
-              `${linkBaseClasses} ${
-                isActive
-                  ? 'bg-slate-800 text-sky-300'
-                  : 'text-slate-200 hover:bg-slate-900 hover:text-sky-200'
-              }`
-            }
-          >
-            <BuildingIcon className="h-4 w-4" />
-            <span>Locales y negocios</span>
-          </NavLink>
-
-          <button
-            type="button"
-            className={`${linkBaseClasses} mt-2 w-full text-slate-300 hover:bg-slate-900 hover:text-red-300`}
-          >
-            <SettingsIcon className="h-4 w-4" />
-            <span>Configuración (pronto)</span>
-          </button>
         </nav>
       </div>
 

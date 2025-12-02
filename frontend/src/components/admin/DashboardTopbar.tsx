@@ -9,9 +9,7 @@ const DashboardTopbar: React.FC = () => {
     <header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-3">
       <div>
         <h1 className="text-lg font-semibold text-slate-900">Panel administrativo</h1>
-        <p className="text-xs text-slate-500">
-          Gestión de contenido turístico, negocios locales y visibilidad pública de Levanto.
-        </p>
+        
       </div>
       <div className="text-right text-xs text-slate-600">
         <p className="font-semibold">{user?.name}</p>
