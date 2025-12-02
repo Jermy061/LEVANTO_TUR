@@ -5,7 +5,7 @@ import DashboardTopbar from '../components/admin/DashboardTopbar';
 
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className="flex min-h-screen bg-slate-50">
       <DashboardSidebar />
       <main className="flex-1 overflow-y-auto">
         <DashboardTopbar />

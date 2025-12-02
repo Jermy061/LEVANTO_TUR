@@ -11,7 +11,6 @@ import PublicLayout from "./layouts/PublicLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import TourContentEditor from "./pages/admin/TourContentEditor";
 import HomePage from "./pages/public/HomePage";
-import TenantRegisterPage from "./pages/public/TenantRegisterPage";
 
 const AdminRoute = ({ children }: { children: React.ReactElement }) => { // CORRECCIÓN CLAVE
     const { isAuthenticated, user } = useAuth();
@@ -37,7 +36,6 @@ export default function App() {
           {/* Rutas Públicas */}
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<HomePage />} />
-            <Route path="registro-negocio" element={<TenantRegisterPage />} />
             <Route path="login" element={<LoginPage />} />
           </Route>
 

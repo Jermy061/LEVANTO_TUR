@@ -1,7 +1,7 @@
 // src/layouts/PublicHeader.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HomeIcon, InfoIcon, MapPinIcon, UtensilsIcon, BusIcon, UserPlusIcon } from '../components/icons';
+import { HomeIcon, InfoIcon, MapPinIcon, UtensilsIcon, BusIcon } from '../components/icons';
 
 const PublicHeader: React.FC = () => {
   return (
@@ -34,13 +34,6 @@ const PublicHeader: React.FC = () => {
             <BusIcon className="h-3.5 w-3.5" />
             <span>Planifica tu viaje</span>
           </a>
-          <Link
-            to="/registro-negocio"
-            className="inline-flex items-center gap-1 rounded-full border border-emerald-400/70 bg-emerald-900/40 px-3 py-1 text-xs font-semibold text-emerald-100 shadow-sm shadow-emerald-900/50 hover:bg-emerald-500/20"
-          >
-            <UserPlusIcon className="h-3.5 w-3.5" />
-            <span>Registrar negocio</span>
-          </Link>
           <Link
             to="/login"
             className="hidden items-center gap-1 rounded-full border border-sky-400/70 bg-slate-900/60 px-3 py-1 text-xs font-semibold text-sky-200 shadow-sm shadow-sky-900/50 hover:bg-sky-500/20 sm:inline-flex"
