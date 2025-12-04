@@ -1,68 +1,59 @@
 // src/components/admin/DashboardSidebar.tsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboardIcon, MountainIcon } from '../../components/icons';
+import { LayoutDashboard, Mountain, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-
-const linkBaseClasses =
-  'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors';
+import { cn } from '../../lib/utils';
 
 const DashboardSidebar: React.FC = () => {
   const { user, logout } = useAuth();
 
+  const getLinkClasses = (isActive: boolean) =>
+    cn(
+      'flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary',
+      isActive && 'bg-muted text-primary'
+    );
+
   return (
-    <aside className="flex w-64 flex-col justify-between border-r border-slate-800 bg-slate-950 text-slate-100">
-      <div className="space-y-6 p-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-sky-400 text-2xl font-black text-white">
-            L.
-          </div>
-          <div className="leading-tight">
-            <p className="text-lg font-bold tracking-tight text-white">Levanto</p>
-            <p className="text-xs text-slate-400">Panel Admin</p>
-          </div>
+    <aside className="hidden w-64 flex-col border-r bg-muted/40 md:flex">
+      <div className="flex h-full max-h-screen flex-col gap-2">
+        <div className="flex h-14 items-center border-b px-6">
+          <NavLink to="/admin/dashboard" className="flex items-center gap-2 font-semibold">
+            <Mountain className="h-6 w-6 text-primary" />
+            <span className="">LevantoTur</span>
+          </NavLink>
         </div>
-
-        <nav className="space-y-2">
-          <NavLink
-            to="/admin/dashboard"
-            className={({ isActive }) =>
-              `${linkBaseClasses} ${
-                isActive
-                  ? 'bg-slate-800 text-sky-300'
-                  : 'text-slate-200 hover:bg-slate-900 hover:text-sky-200'
-              }`
-            }
+        <div className="flex-1 overflow-auto py-2">
+          <nav className="grid items-start px-4 text-sm font-medium">
+            <NavLink
+              to="/admin/dashboard"
+              className={({ isActive }) => getLinkClasses(isActive)}
+            >
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </NavLink>
+            <NavLink
+              to="/admin/tour-content"
+              className={({ isActive }) => getLinkClasses(isActive)}
+            >
+              <Mountain className="h-4 w-4" />
+              Contenido Turístico
+            </NavLink>
+          </nav>
+        </div>
+        <div className="mt-auto border-t p-4">
+           <div className="mb-2">
+            <p className="font-semibold text-sm">{user?.name}</p>
+            <p className="text-xs text-muted-foreground">Rol: {user?.role}</p>
+          </div>
+          <button
+            onClick={logout}
+            className="w-full inline-flex h-9 items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground shadow-sm transition-colors hover:bg-secondary/80"
           >
-            <LayoutDashboardIcon className="h-5 w-5" />
-            <span>Dashboard</span>
-          </NavLink>
-
-          <NavLink
-            to="/admin/tour-content"
-            className={({ isActive }) =>
-              `${linkBaseClasses} ${
-                isActive
-                  ? 'bg-slate-800 text-sky-300'
-                  : 'text-slate-200 hover:bg-slate-900 hover:text-sky-200'
-              }`
-            }
-          >
-            <MountainIcon className="h-5 w-5" />
-            <span>Contenido Turístico</span>
-          </NavLink>
-        </nav>
-      </div>
-
-      <div className="border-t border-slate-800 p-4 text-xs text-slate-300">
-        <p className="font-semibold">{user?.name}</p>
-        <p className="text-[11px] text-slate-400">Rol: {user?.role}</p>
-        <button
-          onClick={logout}
-          className="mt-2 text-[11px] font-semibold text-red-400 hover:text-red-300"
-        >
-          Cerrar sesión
-        </button>
+            <LogOut className="mr-2 h-4 w-4" />
+            Cerrar Sesión
+          </button>
+        </div>
       </div>
     </aside>
   );
