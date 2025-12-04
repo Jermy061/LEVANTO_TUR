@@ -1,6 +1,6 @@
 // Archivo: backend_core/src/routes/auth.routes.ts
 import { Router } from 'express';
-import * as authController from '../controller/auth/auth.controller';
+import authController from '../controller/auth/auth.controller';
 
 const router = Router();
 

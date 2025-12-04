@@ -6,7 +6,7 @@ import PublicFooter from './PublicFooter';
 
 const PublicLayout: React.FC = () => {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-950 text-slate-50">
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
       <PublicHeader />
       <main className="flex-1">
         <Outlet />

@@ -6,6 +6,8 @@ import cors from 'cors';
 // Importar las rutas
 import authRoutes from './routes/auth.routes';
 import tenantsRoutes from './routes/tenants.routes';
+import uploadRoutes from './routes/upload.routes';
+import touristicRoutes from './routes/touristic.routes';
 
 const app: Application = express();
 
@@ -24,6 +26,8 @@ app.use(bodyParser.json());
 // Montaje de las rutas de los módulos
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/tenants', tenantsRoutes);
+app.use('/api/v1/upload', uploadRoutes);
+app.use('/api/v1/touristic-places', touristicRoutes);
 
 // Ruta de prueba
 app.get('/api/v1/status', (req: Request, res: Response) => {

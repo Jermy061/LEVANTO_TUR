@@ -1,6 +1,6 @@
 // src/routes/tenants.routes.ts
 import { Router } from 'express';
-import * as tenantsController from '../controller/tenants/tenants.controller';
+import tenantsController from '../controller/tenants/tenants.controller';
 
 const router = Router();
 

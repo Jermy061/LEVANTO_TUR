@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { registerTenantApi, type BusinessType } from '../../services/TenantService';
 import toast from 'react-hot-toast';
-import { PlusIcon } from '../../components/icons';
+import { Send } from 'lucide-react';
 
 const businessOptions: { value: BusinessType; label: string }[] = [
   { value: 'ACCOMMODATION', label: 'Hospedaje / Alojamiento' },
@@ -20,8 +20,8 @@ const TenantRegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!nombreEmpresa.trim()) {
-      toast.error('Por favor, ingresa el nombre de tu negocio.');
+    if (!nombreEmpresa.trim() || !businessType) {
+      toast.error('Por favor, completa todos los campos obligatorios.');
       return;
     }
 
@@ -46,83 +46,96 @@ const TenantRegisterPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-950 px-4 py-12 text-slate-50">
-      <div className="mx-auto flex max-w-3xl flex-col gap-8 rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl">
-        <header className="space-y-2">
-          <h1 className="text-2xl font-bold tracking-tight text-sky-300 sm:text-3xl">
+    <div className="container mx-auto max-w-3xl px-4 py-16">
+      <div className="rounded-xl border bg-card text-card-foreground shadow">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="font-serif text-2xl font-semibold leading-none tracking-tight">
             Registro de Negocios de Levanto
-          </h1>
-          <p className="text-sm text-slate-200">
-            Si eres dueño de un hospedaje, restaurante, transporte local o productor de Levanto, puedes enviar tu
-            solicitud de registro. La Municipalidad revisará los datos antes de publicar tu negocio en la plataforma
-            pública de turismo.
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Si eres dueño de un negocio local, envía tu solicitud para aparecer en nuestra plataforma.
           </p>
-        </header>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wide text-slate-300">
-              Nombre del negocio
-            </label>
-            <input
-              type="text"
-              value={nombreEmpresa}
-              onChange={(e) => setNombreEmpresa(e.target.value)}
-              className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-              placeholder="Ej. Quesería artesanal Levanto"
-              required
-              disabled={isLoading}
-            />
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide text-slate-300">
-                Teléfono de contacto
+        </div>
+        <form onSubmit={handleSubmit} className="p-6 pt-0">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                htmlFor="business-name"
+              >
+                Nombre del negocio
               </label>
               <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                placeholder="9XXXXXXXX"
+                type="text"
+                id="business-name"
+                value={nombreEmpresa}
+                onChange={(e) => setNombreEmpresa(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                placeholder="Ej. Quesería Artesanal Levanto"
+                required
                 disabled={isLoading}
               />
             </div>
-
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wide text-slate-300">
-                Tipo de negocio
-              </label>
-              <select
-                value={businessType}
-                onChange={(e) => setBusinessType(e.target.value as BusinessType | '')}
-                className="mt-1 w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-50 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
-                disabled={isLoading}
-              >
-                <option value="">Selecciona una opción</option>
-                {businessOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                 <label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="phone"
+                >
+                  Teléfono de contacto (Opcional)
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="9XXXXXXXX"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="space-y-2">
+                <label
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  htmlFor="business-type"
+                >
+                  Tipo de negocio
+                </label>
+                <select
+                  id="business-type"
+                  value={businessType}
+                  onChange={(e) => setBusinessType(e.target.value as BusinessType | '')}
+                  className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  required
+                  disabled={isLoading}
+                >
+                  <option value="" disabled>Selecciona una opción</option>
+                  {businessOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
+             <p className="text-xs text-muted-foreground">
+              Al enviar, aceptas que tus datos serán revisados por la Municipalidad. El registro no es automático.
+            </p>
           </div>
-
-          <p className="text-[11px] text-slate-400">
-            Al enviar este formulario, aceptas que tus datos serán revisados por la Municipalidad de Levanto. El
-            registro no se publica automáticamente; quedará pendiente hasta su aprobación.
-          </p>
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md bg-sky-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-sky-700/60"
-          >
-            <PlusIcon className="h-4 w-4" />
-            <span>{isLoading ? 'Enviando solicitud...' : 'Enviar solicitud de registro'}</span>
-          </button>
+          <div className="flex items-center pt-6">
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="inline-flex h-10 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+            >
+              {isLoading ? (
+                <div className="animate-spin mr-2 h-4 w-4 border-t-2 border-r-2 border-primary-foreground rounded-full"></div>
+              ) : (
+                <Send className="mr-2 h-4 w-4" />
+              )}
+              <span>{isLoading ? 'Enviando Solicitud...' : 'Enviar Solicitud de Registro'}</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>

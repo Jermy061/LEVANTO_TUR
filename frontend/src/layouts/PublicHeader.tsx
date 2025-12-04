@@ -1,47 +1,41 @@
 // src/layouts/PublicHeader.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { HomeIcon, InfoIcon, MapPinIcon, UtensilsIcon, BusIcon } from '../components/icons';
+import { Building, Mountain } from 'lucide-react';
 
 const PublicHeader: React.FC = () => {
   return (
-    <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <header className="sticky top-0 z-50 w-full border-b border-neon-cyan/20 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-emerald-500 text-lg font-black">
-            LC
-          </div>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold tracking-tight">LEVANTOCONECTA</p>
-            <p className="text-[11px] text-slate-300">Turismo · Levanto · Chachapoyas</p>
-          </div>
+          <Mountain className="h-6 w-6 text-neon-cyan" />
+          <span className="font-bold text-lg text-neon-cyan text-shadow-neon-cyan">LevantoTur</span>
         </Link>
 
-        <nav className="flex items-center gap-4 text-xs sm:text-sm">
-          <a href="#historia" className="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300">
-            <InfoIcon className="h-3.5 w-3.5" />
-            <span>Historia</span>
+        <nav className="hidden items-center gap-6 text-sm md:flex">
+          <a href="#historia" className="text-muted-foreground transition-colors hover:text-neon-cyan hover:text-shadow-neon-cyan">
+            Historia
           </a>
-          <a href="#sitios-turisticos" className="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300">
-            <MapPinIcon className="h-3.5 w-3.5" />
-            <span>Sitios Turisticos</span>
+          <a href="#sitios-turisticos" className="text-muted-foreground transition-colors hover:text-neon-cyan hover:text-shadow-neon-cyan">
+            Sitios Turísticos
           </a>
-          <a href="#gastronomia" className="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300">
-            <UtensilsIcon className="h-3.5 w-3.5" />
-            <span>Gastronomía</span>
+          <a href="#gastronomia" className="text-muted-foreground transition-colors hover:text-neon-cyan hover:text-shadow-neon-cyan">
+            Gastronomía
           </a>
-          <a href="#planifica-tu-viaje" className="inline-flex items-center gap-1 text-slate-200 hover:text-sky-300">
-            <BusIcon className="h-3.5 w-3.5" />
-            <span>Planifica tu viaje</span>
+          <a href="#planifica-tu-viaje" className="text-muted-foreground transition-colors hover:text-neon-cyan hover:text-shadow-neon-cyan">
+            Planifica tu Viaje
           </a>
+        </nav>
+
+        <div className="flex items-center gap-2">
           <Link
             to="/login"
-            className="hidden items-center gap-1 rounded-full border border-sky-400/70 bg-slate-900/60 px-3 py-1 text-xs font-semibold text-sky-200 shadow-sm shadow-sky-900/50 hover:bg-sky-500/20 sm:inline-flex"
+            className="inline-flex h-9 items-center justify-center rounded-md bg-neon-electric-green/10 px-4 py-2 text-sm font-medium text-neon-electric-green shadow-sm transition-colors hover:bg-neon-electric-green/20"
           >
-            <HomeIcon className="h-3.5 w-3.5" />
-            <span>Acceso Municipalidad</span>
+            <Building className="mr-2 h-4 w-4" />
+            Acceso Municipal
           </Link>
-        </nav>
+        </div>
       </div>
     </header>
   );

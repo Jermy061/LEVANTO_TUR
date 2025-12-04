@@ -1,34 +1,79 @@
 @import "tailwindcss";
 
-/* Estilos globales para el tema claro del restobar */
-body {
-  background-color: #f9fafb;
-  color: #1f2937;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --neon-cyan: 180 100% 50%;
+    --neon-electric-green: 100 100% 50%;
+  }
+ 
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 71% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 100 100% 50%;
+    --secondary-foreground: 224 71% 4%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 180 100% 50% / 0.2;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 180 100% 50%;
+    --neon-cyan: 180 100% 50%;
+    --neon-electric-green: 100 100% 50%;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lora', serif;
+  }
 }
 
-/* Mejoras de scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@layer utilities {
+  .text-shadow-neon-cyan {
+    text-shadow: 0 0 5px hsl(var(--neon-cyan)), 0 0 10px hsl(var(--neon-cyan)), 0 0 20px hsl(var(--neon-cyan));
+  }
+  .text-shadow-neon-green {
+    text-shadow: 0 0 5px hsl(var(--neon-electric-green)), 0 0 10px hsl(var(--neon-electric-green)), 0 0 20px hsl(var(--neon-electric-green));
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Animaciones personalizadas */
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -36,29 +81,45 @@ body {
   }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* Mejoras para imágenes */
-img {
-  transition: transform 0.3s ease;
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out;
 }
 
-/* Efectos de hover mejorados */
-.hover-lift {
-  transition: all 0.3s ease;
+.animate-bounceIn {
+  animation: bounceIn 0.6s ease-out;
 }
 
-.hover-lift:hover {
-  transform: translateY(-2px);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Gradientes personalizados */
-.gradient-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
 }
 
-.gradient-light {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
 }

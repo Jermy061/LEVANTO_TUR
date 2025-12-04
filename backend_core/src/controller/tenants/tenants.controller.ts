@@ -2,7 +2,7 @@
 import type { Request, Response } from 'express';
 import { registerTenant } from '../../services/tenants.service';
 
-export const register = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response) => {
   try {
     const { nombre_empresa, contactPhone, businessType } = req.body ?? {};
 
@@ -21,4 +21,8 @@ export const register = async (req: Request, res: Response) => {
     console.error('Error al registrar tenant:', error);
     return res.status(500).json({ error: 'Error interno al registrar el negocio.' });
   }
+};
+
+export default {
+    register,
 };

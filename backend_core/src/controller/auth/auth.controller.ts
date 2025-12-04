@@ -2,10 +2,7 @@
 import { Request, Response } from 'express';
 import { authenticateUser } from '../../services/auth.service';
 
-/**
- * Maneja la petición POST /api/v1/auth/login.
- */
-export const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
@@ -26,4 +23,8 @@ export const login = async (req: Request, res: Response) => {
     console.error('Error durante el login:', error);
     res.status(500).json({ error: 'Error interno del servidor.' });
   }
+};
+
+export default {
+    login,
 };

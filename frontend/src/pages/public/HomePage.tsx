@@ -1,8 +1,10 @@
 // src/pages/public/HomePage.tsx
 import React, { useState } from 'react';
 import HeroSection from '../../components/public/HeroSection';
+import { Landmark, Utensils, Hotel, Map, History } from 'lucide-react';
+import { cn } from '../../lib/utils';
 
-// DATA
+// DATA (could be moved to a separate file)
 const historyData = {
   prehispanic: {
     title: 'Origen Prehispánico',
@@ -10,61 +12,62 @@ const historyData = {
   },
   colonial: {
     title: 'Época Colonial',
-    content: 'Levanto fue un punto clave en la fundación española. La sede de la ciudad de San Juan de la Frontera de los Chachapoyas se trasladó brevemente a Levanto en 1538, antes de ser reubicada en su emplazamiento actual en 1544. El pueblo mantiene una fuerte arquitectura colonial.',
+    content: 'Levanto fue un punto clave en la fundación española. La sede de la ciudad de San Juan de la Frontera de los Chachapoyas se trasladó brevemente a Levanto en 1538, antes de ser reubicada en su emplazamiento actual en 1544.',
   },
   heritage: {
     title: 'Patrimonio Histórico',
-    content: 'Declarado Monumento y Ambiente Urbano Monumental. Los principales monumentos son el Templo Matriz (recientemente restaurado) y las Cuatro Capillas Posa. También destaca la histórica Casa del Cacique de Levanto (Tayta Lóloc).',
-  },
-  traditions: {
-    title: 'Tradiciones Clave',
-    content: 'La Fiesta Patronal en honor a San Pedro y San Pablo se celebra anualmente del 27 al 29 de junio. Las danzas típicas incluyen La Volada y Las Pallas de Levanto.',
-  },
-  culturalFact: {
-    title: 'Dato Cultural',
-    content: 'Levanto es famoso por el Pan de Levanto, una tradición que se mantiene viva y se hornea en hornos de barro, siendo un producto local muy apreciado.',
+    content: 'Declarado Monumento y Ambiente Urbano Monumental. Los principales monumentos son el Templo Matriz y las Cuatro Capillas Posa. También destaca la histórica Casa del Cacique de Levanto (Tayta Lóloc).',
   },
 };
 
 const archeologySites = [
-  { name: 'Yálape', description: 'Una construcción semifortificada de la cultura Chachapoya. Posee una extensión de 5 hectáreas y cerca de 300 estructuras circulares hechas de piedra.', image: 'https://placehold.co/600x400/334155/FFFFFF/png?text=Yalape' },
-  { name: 'Qhapac Ñan', description: 'Levanto es atravesado por un tramo de la Gran Red de Caminos Inca, un vestigio cultural de alto valor.', image: 'https://placehold.co/600x400/334155/FFFFFF/png?text=Qhapac+Ñan' },
-  { name: 'Molino Huayco', description: 'Ubicado al pie del cerro Yabarin, se trata de un monumento arqueológico que, según la tradición oral, alguna vez se usó para extraer oro.', image: 'https://placehold.co/600x400/334155/FFFFFF/png?text=Molino+Huayco' },
-  { name: 'Yurak Urco', description: 'Un mirador natural con vestigios arqueológicos en la ruta hacia Levanto.', image: 'https://placehold.co/600x400/334155/FFFFFF/png?text=Yurak+Urco' },
+  { name: 'Yálape', description: 'Construcción semifortificada Chachapoya con 300 estructuras circulares.', image: 'https://images.unsplash.com/photo-1587974928442-77dc3e0dbaa4?q=80&w=870' },
+  { name: 'Qhapac Ñan', description: 'Tramo de la Gran Red de Caminos Inca, un vestigio cultural de alto valor.', image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?q=80&w=870' },
+  { name: 'Molino Huayco', description: 'Monumento arqueológico donde, según la tradición, se extraía oro.', image: 'https://images.unsplash.com/photo-1628096791611-1da389a41795?q=80&w=870' },
+  { name: 'Yurak Urco', description: 'Un mirador natural con vestigios arqueológicos en la ruta hacia Levanto.', image: 'https://images.unsplash.com/photo-1559624922-c827cda47a18?q=80&w=870' },
 ];
 
 const attractions = [
-  { name: 'Fortaleza de Kuélap', description: 'El complejo arqueológico más famoso, una ciudadela amurallada de la cultura Chachapoyas.', image: 'https://placehold.co/600x400/1E293B/FFFFFF/png?text=Kuelap' },
-  { name: 'Catarata de Gocta', description: 'Una de las caídas de agua más altas del mundo (771 metros).', image: 'https://placehold.co/600x400/1E293B/FFFFFF/png?text=Gocta' },
-  { name: 'Sarcófagos de Karajía', description: 'Figuras funerarias de más de 2 metros de altura colgadas en un acantilado.', image: 'https://placehold.co/600x400/1E293B/FFFFFF/png?text=Karajia' },
+  { name: 'Fortaleza de Kuélap', description: 'La ciudadela amurallada más famosa de la cultura Chachapoyas.', image: 'https://images.unsplash.com/photo-1613298835391-783451c888d6?q=80&w=870' },
+  { name: 'Catarata de Gocta', description: 'Una de las caídas de agua más altas del mundo (771 metros).', image: 'https://images.unsplash.com/photo-1608244795763-7551ab858552?q=80&w=870' },
+  { name: 'Sarcófagos de Karajía', description: 'Figuras funerarias de más de 2 metros colgadas en un acantilado.', image: 'https://images.unsplash.com/photo-1613298835391-783451c888d6?q=80&w=870' },
 ];
 
 const gastronomy = [
-    { name: 'Pan de Levanto', description: 'Producto estrella del distrito. Pan tradicional horneado en hornos de barro.', image: 'https://placehold.co/600x400/475569/FFFFFF/png?text=Pan+de+Levanto' },
-    { name: 'Locro de Yuca con Frejol y Carancho', description: 'Un guiso espeso a base de yuca y frijoles, acompañado de carancho (piel o cuero de cerdo).', image: 'https://placehold.co/600x400/475569/FFFFFF/png?text=Locro' },
-    { name: 'Cuy Frito o Cuictado', description: 'Plato ceremonial y tradicional, el cuy (conejillo de indias) frito o asado.', image: 'https://placehold.co/600x400/475569/FFFFFF/png?text=Cuy' },
-];
-
-const floraAndFauna = [
-    { name: 'Orquídeas y Bromelias', image: 'https://placehold.co/600x400/52525B/FFFFFF/png?text=Orquideas' },
-    { name: 'Gallito de las Rocas', image: 'https://placehold.co/600x400/52525B/FFFFFF/png?text=Gallito+de+las+Rocas' },
-    { name: 'Oso de Anteojos', image: 'https://placehold.co/600x400/52525B/FFFFFF/png?text=Oso+de+Anteojos' },
+    { name: 'Pan de Levanto', description: 'Producto estrella del distrito, horneado en hornos de barro.', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=870' },
+    { name: 'Locro de Yuca', description: 'Guiso espeso a base de yuca y frijoles, con piel de cerdo.', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=870' },
+    { name: 'Cuy Frito', description: 'Plato ceremonial y tradicional de los Andes.', image: 'https://images.unsplash.com/photo-1626202157994-037a76205e4a?q=80&w=871' },
 ];
 
 const hotels = [
     { name: 'La Xalca Hotel', location: 'Chachapoyas', description: 'Asociado Casa Andina (Casona colonial, cerca de la Plaza).' },
     { name: 'Gocta Andes Lodge', location: 'Cerca de la catarata Gocta', description: 'Lodge con vistas espectaculares a la catarata.' },
-    { name: 'Hospedajes en Levanto', location: 'Levanto', description: 'Existen opciones locales, pero el centro principal de hospedaje es Chachapoyas.' },
+    { name: 'Hospedajes en Levanto', location: 'Levanto', description: 'Opciones locales en el pueblo para una experiencia auténtica.' },
 ];
 
 // SECTIONS
+const SectionCard = ({ title, content }: { title: string, content: string }) => (
+  <div className="rounded-xl border border-neon-cyan/20 bg-card/80 p-6 backdrop-blur-sm transition-all hover:border-neon-cyan/50 animate-fadeInUp">
+    <h3 className="font-serif text-xl font-semibold leading-none tracking-tight text-neon-cyan">{title}</h3>
+    <p className="mt-2 text-muted-foreground">{content}</p>
+  </div>
+);
+
+const ImageCard = ({ name, description, image }: { name:string, description:string, image:string }) => (
+    <div className="group relative overflow-hidden rounded-xl border border-neon-cyan/20 transition-all hover:border-neon-cyan/50 hover:shadow-2xl hover:shadow-neon-cyan/20 animate-bounceIn">
+        <img src={image} alt={name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 p-4">
+            <h3 className="font-serif text-lg font-bold text-white text-shadow-neon-cyan">{name}</h3>
+            <p className="text-sm text-gray-300">{description}</p>
+        </div>
+    </div>
+)
+
 const HistorySection = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {Object.values(historyData).map(item => (
-      <div key={item.title} className="bg-slate-800 p-6 rounded-lg">
-        <h3 className="text-xl font-bold text-sky-300 mb-2">{item.title}</h3>
-        <p className="text-slate-300">{item.content}</p>
-      </div>
+      <SectionCard key={item.title} title={item.title} content={item.content} />
     ))}
   </div>
 );
@@ -72,13 +75,7 @@ const HistorySection = () => (
 const ArcheologySection = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     {archeologySites.map(site => (
-      <div key={site.name} className="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
-        <img src={site.image} alt={site.name} className="w-full h-40 object-cover" />
-        <div className="p-4">
-          <h3 className="text-lg font-bold text-sky-300">{site.name}</h3>
-          <p className="text-sm text-slate-300 mt-1">{site.description}</p>
-        </div>
-      </div>
+      <ImageCard key={site.name} {...site} />
     ))}
   </div>
 );
@@ -86,13 +83,7 @@ const ArcheologySection = () => (
 const AttractionsSection = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {attractions.map(attraction => (
-        <div key={attraction.name} className="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
-          <img src={attraction.image} alt={attraction.name} className="w-full h-40 object-cover" />
-          <div className="p-4">
-            <h3 className="text-lg font-bold text-sky-300">{attraction.name}</h3>
-            <p className="text-sm text-slate-300 mt-1">{attraction.description}</p>
-          </div>
-        </div>
+         <ImageCard key={attraction.name} {...attraction} />
       ))}
     </div>
 );
@@ -100,84 +91,67 @@ const AttractionsSection = () => (
 const GastronomySection = () => (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {gastronomy.map(dish => (
-            <div key={dish.name} className="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
-                <img src={dish.image} alt={dish.name} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                    <h3 className="text-lg font-bold text-sky-300">{dish.name}</h3>
-                    <p className="text-sm text-slate-300 mt-1">{dish.description}</p>
-                </div>
-            </div>
-        ))}
-    </div>
-);
-
-const FloraFaunaSection = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {floraAndFauna.map(item => (
-            <div key={item.name} className="bg-slate-800 rounded-lg shadow-lg overflow-hidden">
-                <img src={item.image} alt={item.name} className="w-full h-40 object-cover" />
-                <div className="p-4">
-                    <h3 className="text-lg font-bold text-sky-300">{item.name}</h3>
-                </div>
-            </div>
+            <ImageCard key={dish.name} {...dish} />
         ))}
     </div>
 );
 
 const HotelsSection = () => (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {hotels.map(hotel => (
-            <div key={hotel.name} className="bg-slate-800 p-4 rounded-lg">
-                <h3 className="text-lg font-bold text-sky-300">{hotel.name}</h3>
-                <p className="text-sm text-slate-400">{hotel.location}</p>
-                <p className="text-slate-300 mt-1">{hotel.description}</p>
+             <div key={hotel.name} className="rounded-xl border border-neon-cyan/20 bg-card/80 p-6 backdrop-blur-sm transition-all hover:border-neon-cyan/50 animate-fadeInUp">
+                <h3 className="font-serif text-lg font-bold text-neon-cyan">{hotel.name}</h3>
+                <p className="text-sm font-semibold text-muted-foreground">{hotel.location}</p>
+                <p className="text-sm text-muted-foreground mt-2">{hotel.description}</p>
             </div>
         ))}
     </div>
 );
 
 
-const TABS = ['Historia y Cultura', 'Sitios Arqueológicos', 'Atractivos Cercanos', 'Gastronomía', 'Flora y Fauna', 'Hoteles'];
+const TABS = [
+  { name: 'Historia', icon: History, content: <HistorySection /> },
+  { name: 'Sitios Arqueológicos', icon: Landmark, content: <ArcheologySection /> },
+  { name: 'Atractivos Cercanos', icon: Map, content: <AttractionsSection /> },
+  { name: 'Gastronomía', icon: Utensils, content: <GastronomySection /> },
+  { name: 'Hoteles', icon: Hotel, content: <HotelsSection /> },
+];
 
 const HomePage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState(TABS[0]);
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'Historia y Cultura': return <HistorySection />;
-      case 'Sitios Arqueológicos': return <ArcheologySection />;
-      case 'Atractivos Cercanos': return <AttractionsSection />;
-      case 'Gastronomía': return <GastronomySection />;
-      case 'Flora y Fauna': return <FloraFaunaSection />;
-      case 'Hoteles': return <HotelsSection />;
-      default: return null;
-    }
-  };
+  const [activeTab, setActiveTab] = useState(TABS[0].name);
 
   return (
-    <div className="bg-slate-950 text-slate-50">
+    <div className="bg-background text-foreground">
       <HeroSection />
       
-      <main className="px-4 py-16">
-        <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold tracking-tight text-sky-300 sm:text-4xl text-center">Descubre Levanto</h2>
-            <p className="mt-4 text-lg text-slate-300 text-center">Una guía interactiva para explorar la rica historia, cultura y belleza natural de Levanto.</p>
+      <main className="container mx-auto max-w-screen-2xl px-4 py-16 sm:py-24">
+        <div className="text-center animate-fadeInUp">
+            <h2 className="font-serif text-4xl font-bold tracking-tight text-neon-cyan text-shadow-neon-cyan sm:text-5xl">Descubre Levanto</h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
+                Una guía interactiva para explorar la rica historia, cultura y belleza natural de este pueblo ancestral.
+            </p>
+        </div>
 
-            <div className="mt-12">
-                <div className="flex justify-center border-b border-slate-700">
-                    {TABS.map(tab => (
-                        <button
-                            key={tab}
-                            className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === tab ? 'text-sky-300 border-b-2 border-sky-300' : 'text-slate-400 hover:text-sky-300'}`}
-                            onClick={() => setActiveTab(tab)}
-                        >
-                            {tab}
-                        </button>
-                    ))}
-                </div>
-                <div className="mt-8">
-                    {renderContent()}
-                </div>
+        <div className="mt-12 animate-fadeInUp">
+            <div className="flex flex-wrap justify-center gap-2 border-b border-neon-cyan/20">
+                {TABS.map(tab => (
+                    <button
+                        key={tab.name}
+                        className={cn(
+                            "flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors focus:outline-none",
+                            activeTab === tab.name
+                                ? 'border-b-2 border-neon-cyan text-neon-cyan'
+                                : 'text-muted-foreground hover:text-neon-cyan'
+                        )}
+                        onClick={() => setActiveTab(tab.name)}
+                    >
+                        <tab.icon className="h-4 w-4" />
+                        <span>{tab.name}</span>
+                    </button>
+                ))}
+            </div>
+            <div className="mt-8">
+                {TABS.find(tab => tab.name === activeTab)?.content}
             </div>
         </div>
       </main>
