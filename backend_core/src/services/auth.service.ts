@@ -34,7 +34,7 @@ export const authenticateUser = async (email: string, password: string) => {
     { 
       userId: user.id, 
       role: user.role,
-      tenantId: user.tenantId || null // null si es ADMIN
+      tenantId: user.role === 'TENANT' ? user.tenantId : null
     }, 
     JWT_SECRET, 
     { expiresIn: '8h' } 
@@ -47,7 +47,7 @@ export const authenticateUser = async (email: string, password: string) => {
       name: user.name,
       email: user.email,
       role: user.role,
-      tenantId: user.tenantId,
+      tenantId: user.role === 'TENANT' ? user.tenantId : null,
     },
   };
 };
