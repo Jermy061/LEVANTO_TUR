@@ -1,51 +1,106 @@
-// src/components/public/HeroSection.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Compass, Calendar } from 'lucide-react';
+import { Mountain, Footprints, Sparkles } from 'lucide-react';
+import ParallaxCarousel from '../shared/ParallaxCarousel';
 
-const HeroSection: React.FC = () => {
+export default function HeroSection() {
+  const carouselSlides = [
+    {
+      id: 1,
+      image:
+        'https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&w=1920',
+      title: 'Levanto: Cuna Histórica de Chachapoyas',
+      description: 'Descubre el Camino Inca original y el curacazgo ancestral',
+    },
+    {
+      id: 2,
+      image:
+        'https://images.pexels.com/photos/1743165/pexels-photo-1743165.jpeg?auto=compress&cs=tinysrgb&w=1920',
+      title: 'Naturaleza Exuberante',
+      description: 'Bosques nubosos, lagunas glaciares y biodiversidad única',
+    },
+    {
+      id: 3,
+      image:
+        'https://images.pexels.com/photos/2166559/pexels-photo-2166559.jpeg?auto=compress&cs=tinysrgb&w=1920',
+      title: 'Patrimonio Cultural Vivo',
+      description: 'Tradiciones ancestrales que perduran en la comunidad',
+    },
+  ];
+
   return (
-    <section className="relative h-[60vh] min-h-[400px] w-full">
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Paisaje-soloco_chachapoyas_amazonas_peru.jpg"
-          alt="Paisaje de Chachapoyas"
-          className="h-full w-full object-cover"
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-      </div>
+    <section id="inicio" className="pt-24 md:pt-32 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <ParallaxCarousel slides={carouselSlides} autoPlay={true} />
 
-      {/* Content */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-foreground">
-        <div className="container mx-auto max-w-screen-md px-4">
-          <h1 className="font-serif text-4xl font-bold leading-tight tracking-tighter md:text-5xl lg:text-6xl">
-            Levanto: Cuna Histórica de Chachapoyas
+        <div className="text-center space-y-8 animate-fade-in">
+          <div className="inline-flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-full border border-[#0077B6]/20">
+            <Sparkles className="w-4 h-4 text-[#FFD166]" />
+            <span className="text-sm font-medium text-gray-700">
+              Patrimonio Cultural de Chachapoyas
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
+            Levanto: Cuna Histórica de
+            <br />
+            <span className="text-[#0077B6]">Chachapoyas</span> y Hogar del
+            <br />
+            <span className="text-[#FF6B35]">Curacazgo Ancestral</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Descubre la historia viva, el Camino Inca y la calidez de su gente en la ruta a Kuélap.
+
+          <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Descubre el Camino Inca original, la historia viva y la gastronomía
+            local en el corazón de los Andes amazónicos.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              to="/sitios-turisticos"
-              className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <button
+              onClick={() =>
+                document
+                  .getElementById('sitios')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="group px-8 py-4 bg-[#0077B6] text-white rounded-lg font-semibold text-lg hover:bg-[#005F8F] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2"
             >
-              <Compass className="mr-2 h-4 w-4" />
-              Explorar Sitios
-            </Link>
-            <a
-              href="#planifica-tu-viaje"
-              className="inline-flex h-11 items-center justify-center rounded-md border border-input bg-background/80 px-8 text-sm font-medium shadow-sm backdrop-blur transition-colors hover:bg-accent hover:text-accent-foreground"
+              <Mountain className="w-5 h-5" />
+              <span>Explorar Sitios</span>
+            </button>
+            <button
+              onClick={() =>
+                document
+                  .getElementById('historia')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="group px-8 py-4 bg-white text-[#0077B6] border-2 border-[#0077B6] rounded-lg font-semibold text-lg hover:bg-[#0077B6] hover:text-white transition-all duration-200 shadow-md hover:shadow-lg flex items-center space-x-2"
             >
-              <Calendar className="mr-2 h-4 w-4" />
-              Planifica tu Viaje
-            </a>
+              <Footprints className="w-5 h-5" />
+              <span>Conoce la Historia</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-12">
+            <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="text-3xl font-bold text-[#0077B6] mb-2">1538</div>
+              <div className="text-gray-700 font-medium">
+                Primera Capital de Chachapoyas
+              </div>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="text-3xl font-bold text-[#FF6B35] mb-2">500+</div>
+              <div className="text-gray-700 font-medium">
+                Años de Historia Viva
+              </div>
+            </div>
+            <div className="bg-white/70 backdrop-blur-sm p-6 rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+              <div className="text-3xl font-bold text-[#FFD166] mb-2">
+                Único
+              </div>
+              <div className="text-gray-700 font-medium">
+                Camino Inca Original
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}

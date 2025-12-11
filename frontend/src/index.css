@@ -1,76 +1,22 @@
-@import "tailwindcss";
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-    --neon-cyan: 180 100% 50%;
-    --neon-electric-green: 100 100% 50%;
-  }
- 
-  .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 224 71% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 180 100% 50%;
-    --primary-foreground: 224 71% 4%;
-    --secondary: 100 100% 50%;
-    --secondary-foreground: 224 71% 4%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 180 100% 50% / 0.2;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 180 100% 50%;
-    --neon-cyan: 180 100% 50%;
-    --neon-electric-green: 100 100% 50%;
-  }
-
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: 'Inter', sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lora', serif;
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
-  .text-shadow-neon-cyan {
-    text-shadow: 0 0 5px hsl(var(--neon-cyan)), 0 0 10px hsl(var(--neon-cyan)), 0 0 20px hsl(var(--neon-cyan));
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
   }
-  .text-shadow-neon-green {
-    text-shadow: 0 0 5px hsl(var(--neon-electric-green)), 0 0 10px hsl(var(--neon-electric-green)), 0 0 20px hsl(var(--neon-electric-green));
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
   }
 }
 
-@keyframes fadeInUp {
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -81,45 +27,28 @@
   }
 }
 
-@keyframes bounceIn {
-  0% {
+@keyframes slideInLeft {
+  from {
     opacity: 0;
-    transform: scale(0.3);
+    transform: translateX(-50px);
   }
-  50% {
+  to {
     opacity: 1;
-    transform: scale(1.05);
-  }
-  70% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
+    transform: translateX(0);
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 0.8s ease-out;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.animate-bounceIn {
-  animation: bounceIn 0.6s ease-out;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+html {
+  scroll-behavior: smooth;
 }
