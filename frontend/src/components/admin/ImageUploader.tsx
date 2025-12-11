@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { uploadImage } from '../../services/UploadService';
 import toast from 'react-hot-toast';
-import { UploadCloud, X, Image as ImageIcon } from 'lucide-react';
+import { UploadCloud, X } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface ImageUploaderProps {

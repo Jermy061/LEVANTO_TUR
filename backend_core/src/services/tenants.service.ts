@@ -21,7 +21,7 @@ export const registerTenant = async (data: TenantRegisterInput) => {
 
   const subdominio = `pre-${baseSlug}`; // En futura versión podrías garantizar unicidad
 
-  const tenant = await prisma.tenants.create({
+  const tenant = await prisma.tenant.create({
     data: {
       nombre_empresa,
       subdominio,
