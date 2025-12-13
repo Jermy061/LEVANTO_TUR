@@ -31,13 +31,13 @@ const DashboardTopbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
-        <SheetTrigger asChild>
+        <SheetTrigger>
           <Button size="icon" variant="outline" className="sm:hidden">
             <PanelLeft className="h-5 w-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="sm:max-w-xs">
+        <SheetContent className="sm:max-w-xs">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               to="/admin/dashboard"
@@ -64,7 +64,7 @@ const DashboardTopbar: React.FC = () => {
       <Breadcrumb className="hidden md:flex">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink asChild>
+            <BreadcrumbLink>
               <Link to="/admin">Admin</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -78,7 +78,7 @@ const DashboardTopbar: React.FC = () => {
                   {isLast ? (
                      <BreadcrumbPage>{value}</BreadcrumbPage>
                   ) : (
-                    <BreadcrumbLink asChild>
+                    <BreadcrumbLink>
                       <Link to={to}>{value}</Link>
                     </BreadcrumbLink>
                   )}
@@ -97,7 +97,7 @@ const DashboardTopbar: React.FC = () => {
         />
       </div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button
             variant="outline"
             size="icon"
@@ -111,7 +111,7 @@ const DashboardTopbar: React.FC = () => {
             />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent>
           <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Settings</DropdownMenuItem>
