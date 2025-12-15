@@ -15,7 +15,7 @@ const DashboardSidebar: React.FC = () => {
     );
 
   return (
-    <aside className="hidden w-64 flex-col border-r bg-muted/40 md:flex">
+    <aside className="hidden w-64 flex-col border-r bg-background md:flex">
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex h-14 items-center border-b px-6">
           <NavLink to="/admin/dashboard" className="flex items-center gap-2 font-semibold">

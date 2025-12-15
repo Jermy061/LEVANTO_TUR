@@ -5,7 +5,7 @@ import DashboardTopbar from '../components/admin/DashboardTopbar';
 
 const DashboardLayout = () => {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
+    <div className="flex min-h-screen w-full flex-col bg-background">
       <DashboardSidebar />
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
         <DashboardTopbar />
