@@ -22,6 +22,7 @@ import {
 import { PanelLeft, Mountain, Search } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Input } from '../../components/ui/input'; // I will create these later
+import { ModeToggle } from '../ui/ModeToggle';
 
 const DashboardTopbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -96,30 +97,33 @@ const DashboardTopbar: React.FC = () => {
           className="w-full rounded-lg bg-muted pl-8 md:w-[200px] lg:w-[320px]"
         />
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button
-            variant="outline"
-            size="icon"
-            className="overflow-hidden rounded-full"
-          >
-            <img
-              src={`https://api.dicebear.com/7.x/identicon/svg?seed=${user?.email}`}
-              width={36}
-              height={36}
-              alt="Avatar"
-            />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Settings</DropdownMenuItem>
-          <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="flex items-center gap-4">
+        <ModeToggle />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="overflow-hidden rounded-full"
+            >
+              <img
+                src={`https://api.dicebear.com/7.x/identicon/svg?seed=${user?.email}`}
+                width={36}
+                height={36}
+                alt="Avatar"
+              />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </header>
   );
 };
