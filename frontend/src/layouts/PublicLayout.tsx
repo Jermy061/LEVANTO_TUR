@@ -2,6 +2,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { MapPin, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { ModeToggle } from '../components/ui/ModeToggle';
+import { ThemeTestButton } from '../components/ui/ThemeTestButton';
 
 export default function PublicLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function PublicLayout() {
               >
                 Inicio
               </button>
+              <ThemeTestButton />
               <button
                 onClick={() => scrollToSection('sitios')}
                 className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200"
